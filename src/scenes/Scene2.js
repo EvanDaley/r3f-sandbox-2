@@ -14,7 +14,7 @@ export default function Scene({ sceneIndex }) {
                 <OrbitControls target={[1, 1, 0]} />
                 <Html>
                     <p>
-                        hello world<br />
+                        hello world 2<br />
 
 
                     </p>
