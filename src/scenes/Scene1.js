@@ -15,9 +15,21 @@ export default function Scene({ sceneIndex }) {
                 <Html>
                     <p>
                         hello world<br />
+
+
                     </p>
                 </Html>
             </Stage>
         </>
     );
 }
+
+import { broadcast } from '../networking/PeerManager';
+
+const sendMyPosition = (pos) => {
+    broadcast({
+        scene: 'scene1',
+        type: 'positionUpdate',
+        payload: { x: pos.x, y: pos.y, z: pos.z },
+    });
+};
