@@ -1,11 +1,9 @@
 ﻿import './App.css';
-import ThreeCanvas from './components/three_components/ThreeCanvas'
-// import HTMLContent from './components/html_components/HTMLContent'
+import ThreeCanvas from './scenes/ThreeCanvas'
 
 function App() {
     return (
         <>
-            {/*<HTMLContent/>*/}
             <ThreeCanvas/>
         </>
     );

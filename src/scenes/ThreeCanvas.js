@@ -2,16 +2,16 @@
 import { Canvas } from '@react-three/fiber';
 import React, { Suspense } from 'react';
 
-import Scene1 from './scenes/Scene1';
+import Scene1 from './Scene1';
 
-import useStore from '../../store/store'
+import useSceneStore from '../stores/sceneStore'
 
 export default function ThreeCanvas() {
     const scenes = [
         Scene1,
     ]
 
-    const sceneIndex = useStore(state => state.sceneIndex)
+    const sceneIndex = useSceneStore(state => state.sceneIndex)
 
     return (
         <>
