@@ -2,7 +2,7 @@
 import { usePeerStore } from '../stores/peerStore';
 
 export const initPeer = (onConnected) => {
-    const { peer, setPeer, setPeerId, addConnection } = usePeerStore.getState();
+    const { peer, setPeer, setPeerId, setIsHost, addConnection } = usePeerStore.getState();
     if (peer) return peer;
 
     const newPeer = new Peer();
@@ -16,10 +16,8 @@ export const initPeer = (onConnected) => {
         console.log('Incoming connection from', conn.peer);
         setupConnection(conn, onConnected);
 
-        // TODO: ON RECEIVING CONNECTION save the notion that " I AM HOST "
-        // TODO: ON SENDING CONNECTION save the notion that " I AM CLIENT "
-        // TODO: ON INIT, save id to application storage. If the page is refreshed grab the same id, and if I was
-        // a client - reconnect to host and fetch the game state
+        // ON RECEIVING CONNECTION save the notion that [ I AM HOST ]
+        setIsHost(true);
     });
 
     newPeer.on('error', (err) => {
@@ -32,9 +30,14 @@ export const initPeer = (onConnected) => {
 };
 
 export const connectToPeer = (peerId, onConnected) => {
+    const { setIsClient } = usePeerStore.getState();
+
     const { peer } = usePeerStore.getState();
     const conn = peer.connect(peerId);
     setupConnection(conn, onConnected);
+
+    // ON SENDING CONNECTION save the notion that [ I AM CLIENT ]
+    setIsClient(true);
 };
 
 function setupConnection(conn, onConnected) {
