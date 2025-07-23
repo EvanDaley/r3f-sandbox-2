@@ -20,14 +20,14 @@ export default function WelcomeScreen() {
             <PerspectiveCamera makeDefault position={[0, 0, 9]} fov={30} zoom={1} />
 
             <Stage adjustCamera={false} intensity={0.5} contactShadow shadows>
-                <OrbitControls
-                    rotateSpeed={0.02}
-                    autoRotate={false}
-                    autoRotateSpeed={-.07}
-                    zoomSpeed={0.75}
-                    minPolarAngle={Math.PI / 2.20}
-                    maxPolarAngle={Math.PI / 2.55}
-                />
+                {/*<OrbitControls*/}
+                {/*    rotateSpeed={0.02}*/}
+                {/*    autoRotate={false}*/}
+                {/*    autoRotateSpeed={-.07}*/}
+                {/*    zoomSpeed={0.75}*/}
+                {/*    minPolarAngle={Math.PI / 2.20}*/}
+                {/*    maxPolarAngle={Math.PI / 2.55}*/}
+                {/*/>*/}
 
                 <Suspense fallback={null}>
                     {/*<Environment*/}

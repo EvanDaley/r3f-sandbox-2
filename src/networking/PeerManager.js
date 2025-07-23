@@ -22,6 +22,11 @@ export const initPeer = (onConnected) => {
         // a client - reconnect to host and fetch the game state
     });
 
+    newPeer.on('error', (err) => {
+        console.error('PeerJS connection error:', err);
+        // You might also want to clear the saved ID if it's causing issues:
+    });
+
     setPeer(newPeer);
     return newPeer;
 };
