@@ -15,6 +15,11 @@ export const initPeer = (onConnected) => {
     newPeer.on('connection', (conn) => {
         console.log('Incoming connection from', conn.peer);
         setupConnection(conn, onConnected);
+
+        // TODO: ON RECEIVING CONNECTION save the notion that " I AM HOST "
+        // TODO: ON SENDING CONNECTION save the notion that " I AM CLIENT "
+        // TODO: ON INIT, save id to application storage. If the page is refreshed grab the same id, and if I was
+        // a client - reconnect to host and fetch the game state
     });
 
     setPeer(newPeer);

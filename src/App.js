@@ -10,39 +10,3 @@ function App() {
 }
 
 export default App;
-//
-//
-// import React from 'react';
-// import usePeerConnection from './hooks/usePeerConnection';
-//
-// export default function App() {
-//     const {
-//         peerId,
-//         isConnected,
-//         inputId,
-//         setInputId,
-//         handleConnect,
-//         connections,
-//     } = usePeerConnection();
-//
-//     return (
-//         <div style={{ padding: 20, backgroundColor: 'white', height: '100vh' }}>
-//             <h1>Welcome!</h1>
-//             <p>Your Peer ID: {peerId || '...'}</p>
-//
-//             {!isConnected ? (
-//                 <>
-//                     <input
-//                         type="text"
-//                         placeholder="Enter peer ID"
-//                         value={inputId}
-//                         onChange={(e) => setInputId(e.target.value)}
-//                     />
-//                     <button onClick={handleConnect}>Connect</button>
-//                 </>
-//             ) : (
-//                 <p>Connected to: {Object.keys(connections).join(', ')}</p>
-//             )}
-//         </div>
-//     );
-// }
