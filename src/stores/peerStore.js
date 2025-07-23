@@ -1,6 +1,7 @@
 ﻿import create from 'zustand';
+import { devtools } from 'zustand/middleware';
 
-export const usePeerStore = create((set) => ({
+export const usePeerStore = create(devtools((set) => ({
     peer: null,
     peerId: null,
     connections: {},
@@ -20,13 +21,14 @@ export const usePeerStore = create((set) => ({
             },
         })),
 
-    // This ended up not working. Github pages doesn't like the # and it messes up asset loading
-    // initFromUrl: () => {
-    //     const hash = window.location.hash.substring(1); // Remove the '#' character
-    //     const match = hash.match(/^(.+)-([a-f0-9\-]{36})$/i);
-    //     if (match) {
-    //         const [, name, hostId] = match;
-    //         set({ playerName: name, hostId });
-    //     }
-    // },
-}));
+    reset: () => set({
+        peerId: null,
+        playerName: '',
+        connections: {},
+        peer: null,
+    }),
+}), { name: 'PeerStore' }));
+
+if (process.env.NODE_ENV === 'development') {
+    window.usePeerStore = usePeerStore;
+}
