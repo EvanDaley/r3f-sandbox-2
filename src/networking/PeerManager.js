@@ -1,4 +1,5 @@
-﻿import Peer from 'peerjs';
+﻿// PeerManager.js
+import Peer from 'peerjs';
 import { usePeerStore } from '../stores/peerStore';
 
 export const initPeer = (onConnected) => {
