@@ -19,11 +19,10 @@ Deploy to GitHub Pages: `npm run ship` (builds and deploys)
 
 ## Development Helpers
 
-- `npm run dev:dual` will spin up two local servers on 3000 and 3001. 
+- For easy development, use `npm run dev:dual` to spin up local servers on 3000 and 3001. 
 - The one running on 3000 will use the peer id `host-local-dev`
 - The one running on 3001 will use the peer id `client-local-dev`. 
-- One second after loading the page, the client will try to create a peer connection to the host.
-- This makes testing much faster. As long as you've got a tab open on each port, you can refresh and they'll automatically find each other. 
+- One second after loading the page, the client will try to create a peer connection to the hardcoded host id. This makes testing much faster. As long as you've got a tab open on each port, you can refresh and they'll automatically find each other. 
 
 ## Architecture Overview
 
