@@ -20,6 +20,9 @@ export function playerInfo(fromPeerId, payload) {
     // If we're the host, broadcast updated player list to all clients
     if (isHost) {
         broadcastPlayerList();
+        
+        // Also send current scene state to catch up the new player
+        sendCurrentSceneState(fromPeerId);
     }
 }
 
@@ -80,4 +83,45 @@ function broadcastPlayerList() {
             });
         }
     });
+}
+
+function sendCurrentSceneState(newPlayerId) {
+    const { connections } = usePeerStore.getState();
+    const newPlayerConnection = connections[newPlayerId];
+    
+    if (!newPlayerConnection || !newPlayerConnection.conn || !newPlayerConnection.conn.open) {
+        return;
+    }
+
+    // Get current scene
+    const { currentSceneId } = require('../../stores/sceneStore').default.getState();
+    
+    // Send scene change to new player
+    newPlayerConnection.conn.send({
+        scene: 'common',
+        type: 'changeScene',
+        payload: { sceneId: currentSceneId }
+    });
+
+    // Send scene-specific state based on current scene
+    if (currentSceneId === 'scene1') {
+        const { useScene1Store } = require('../../stores/scene1Store');
+        const { clickCounts, sceneStartTime } = useScene1Store.getState();
+        
+        // Initialize the new player in scene1 store
+        const { initializePlayer } = useScene1Store.getState();
+        initializePlayer(newPlayerId);
+        
+        // Send current scene1 state
+        newPlayerConnection.conn.send({
+            scene: 'scene1',
+            type: 'sceneInit',
+            payload: {
+                startTime: sceneStartTime,
+                playerData: { clickCounts }
+            }
+        });
+    }
+    
+    console.log(`Sent current scene state (${currentSceneId}) to new player ${newPlayerId}`);
 }
