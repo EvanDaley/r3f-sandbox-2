@@ -16,8 +16,6 @@ Start development server: `npm start` or `npm run dev`
 
 Build for production: `npm run build`
 
-Run tests: `npm test`
-
 Deploy to GitHub Pages: `npm run ship` (builds and deploys)
 
 ## Development Helpers
