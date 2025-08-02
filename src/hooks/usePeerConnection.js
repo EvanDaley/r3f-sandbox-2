@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from 'react';
+﻿// usePeerConnection.js
+import { useEffect, useState } from 'react';
 import { initPeer, connectToPeer } from '../networking/PeerManager';
 import { usePeerStore } from '../stores/peerStore';
 

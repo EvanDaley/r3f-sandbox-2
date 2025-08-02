@@ -1,4 +1,5 @@
-﻿import { OrbitControls, Stage, PerspectiveCamera, Environment, Html } from '@react-three/drei';
+﻿// WelcomeScreen.js
+import { OrbitControls, Stage, PerspectiveCamera, Environment, Html } from '@react-three/drei';
 import React, { Suspense } from 'react';
 import usePeerConnection from '../hooks/usePeerConnection';
 import LinesRobot from "../components/characters/LinesRobot"; // Adjust path as needed
