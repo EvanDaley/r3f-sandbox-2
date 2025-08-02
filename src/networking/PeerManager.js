@@ -1,6 +1,7 @@
 ﻿// PeerManager.js
 import Peer from 'peerjs';
 import { usePeerStore } from '../stores/peerStore';
+import { routeMessage } from './MessageRouter';
 
 // Helper function to detect local development environment and role
 const getLocalDevConfig = () => {
@@ -85,6 +86,7 @@ function setupConnection(conn, onConnected) {
 
     conn.on('data', (data) => {
         console.log('Received from', conn.peer, ':', data);
+        routeMessage(conn.peer, data);
     });
 }
 

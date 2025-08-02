@@ -15,6 +15,7 @@ export default function WelcomeScreen() {
         handleConnect,
         connections,
         isHost,
+        handleSceneChange
     } = usePeerConnection();
 
     return (
@@ -61,7 +62,7 @@ export default function WelcomeScreen() {
                             <>
                                 <p>Connected to: {Object.keys(connections).join(', ')}</p>
                                 {isHost && (
-                                    <button onClick={() => console.log('Start Game')}>Start Game</button>
+                                    <button onClick={() => handleSceneChange('scene1')}>Start Game</button>
                                 )}
                             </>
                         )}

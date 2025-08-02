@@ -7,34 +7,31 @@
 // might need outside the 3D scene.
 
 import usePeerConnection from '../hooks/usePeerConnection';
+import HostControls from './HostControls';
 
 export default function HTMLContent() {
-    const {
-        peerId,
-        playerName,
-        isConnected,
-        hostId,
-        setHostId,
-        setPlayerName,
-        handleConnect,
-        connections,
-    } = usePeerConnection();
+    const { peerId } = usePeerConnection();
 
     return (
-        <div style={{
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            backgroundColor: 'rgba(128, 128, 128, 0.2)', // light transparent grey
-            padding: '4px 8px',
-            borderRadius: '4px',
-            fontSize: '10px',
-            color: '#666',
-            zIndex: 9999,
-            userSelect: 'text',
-            pointerEvents: 'auto',
-        }}>
-            {peerId}
-        </div>
+        <>
+            {/* Peer ID Display */}
+            <div style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                backgroundColor: 'rgba(128, 128, 128, 0.2)',
+                padding: '4px 8px',
+                borderRadius: '4px',
+                fontSize: '10px',
+                color: '#666',
+                zIndex: 9999,
+                userSelect: 'text',
+                pointerEvents: 'auto',
+            }}>
+                {peerId}
+            </div>
+
+            <HostControls />
+        </>
     )
 }
