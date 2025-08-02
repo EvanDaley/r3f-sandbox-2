@@ -29,10 +29,10 @@ export default function HTMLContent() {
             padding: '4px 8px',
             borderRadius: '4px',
             fontSize: '10px',
-            color: '#666', // muted grey text
-            zIndex: 9999, // <-- make sure it sits on top
-            userSelect: 'text', // <-- allow text selection
-            pointerEvents: 'auto', // <-- ensure it's interactable
+            color: '#666',
+            zIndex: 9999,
+            userSelect: 'text',
+            pointerEvents: 'auto',
         }}>
             {peerId}
         </div>
