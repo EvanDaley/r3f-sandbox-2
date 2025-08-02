@@ -60,7 +60,14 @@ export default function WelcomeScreen() {
                             </>
                         ) : (
                             <>
-                                <p>Connected to: {Object.keys(connections).join(', ')}</p>
+                                <p>Players:</p>
+                                <ul>
+                                    {Object.entries(connections).map(([peerId, data]) => (
+                                        <li key={peerId}>
+                                            {data.name || 'Unknown'} ({peerId.slice(0, 8)}...)
+                                        </li>
+                                    ))}
+                                </ul>
                                 {isHost && (
                                     <button onClick={() => handleSceneChange('scene1')}>Start Game</button>
                                 )}

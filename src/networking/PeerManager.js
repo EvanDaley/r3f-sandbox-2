@@ -2,6 +2,8 @@
 import Peer from 'peerjs';
 import { usePeerStore } from '../stores/peerStore';
 import { routeMessage } from './MessageRouter';
+import {getRandomName} from "../helpers/stringHelpers";
+
 
 // Helper function to detect local development environment and role
 const getLocalDevConfig = () => {
@@ -12,17 +14,27 @@ const getLocalDevConfig = () => {
     if (!isLocalhost) return null;
     
     const role = envRole || (port === '3001' ? 'client' : 'host');
-    const peerId = role === 'host' ? 'host-local-dev' : 'client-local-dev';
+    const peerId = role === 'host'
+        ? 'host-local-dev'
+        : `client-local-dev-${Math.floor(Math.random() * 10000)}`;
+
+    const playerName = port === '3000' ? 'Evan' : getRandomName();
     
-    return { role, peerId, isLocalDev: true };
+    return { role, peerId, playerName, isLocalDev: true };
 };
 
 export const initPeer = (onConnected) => {
-    const { peer, setPeer, setPeerId, setIsHost, setIsClient, addConnection } = usePeerStore.getState();
+    const { peer, setPeer, setPeerId, setIsHost, setIsClient, addConnection, setPlayerName } = usePeerStore.getState();
     if (peer) return peer;
 
     const localConfig = getLocalDevConfig();
     const newPeer = localConfig ? new Peer(localConfig.peerId) : new Peer();
+    
+    // Set player name for localhost development
+    if (localConfig && localConfig.playerName) {
+        setPlayerName(localConfig.playerName);
+        console.log(`Auto-set player name for localhost: ${localConfig.playerName}`);
+    }
 
     newPeer.on('open', (id) => {
         console.log('Your peer ID is:', id);
@@ -41,6 +53,15 @@ export const initPeer = (onConnected) => {
         console.log('Incoming connection from', conn.peer);
         setupConnection(conn, onConnected);
         setIsHost(true);
+        
+        // When we become host, add ourselves to the connections list
+        const { playerName, peerId, addConnection: addSelfConnection } = usePeerStore.getState();
+        if (playerName && peerId) {
+            // Add ourselves as a "connection" for display purposes
+            setTimeout(() => {
+                addSelfConnection(peerId, null, playerName);
+            }, 100);
+        }
     });
 
     newPeer.on('error', (err) => {
@@ -76,11 +97,21 @@ export const connectToPeer = (peerId, onConnected) => {
 };
 
 function setupConnection(conn, onConnected) {
-    const { addConnection } = usePeerStore.getState();
+    const { addConnection, playerName, isClient } = usePeerStore.getState();
 
     conn.on('open', () => {
         console.log('Connected to', conn.peer);
         addConnection(conn.peer, conn);
+        
+        // If we're a client connecting to host, send our player info
+        if (isClient && playerName) {
+            conn.send({
+                scene: 'common',
+                type: 'playerInfo',
+                payload: { name: playerName }
+            });
+        }
+        
         onConnected(conn.peer);
     });
 

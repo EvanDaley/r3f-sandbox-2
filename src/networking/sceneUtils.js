@@ -15,8 +15,8 @@ export const broadcastSceneChange = (sceneId) => {
     };
     
     // Send to all connected clients
-    Object.values(connections).forEach(conn => {
-        if (conn.open) {
+    Object.values(connections).forEach(({ conn }) => {
+        if (conn && conn.open) {
             conn.send(message);
             console.log(`Sent scene change to ${conn.peer}: ${sceneId}`);
         }
