@@ -25,8 +25,6 @@ Deploy to GitHub Pages: `npm run ship` (builds and deploys)
 - One second after loading the page, the client will try to create a peer connection to the host.
 - This makes testing much faster. As long as you've got a tab open on each port, you can refresh and they'll automatically find each other. 
 
-![dev/auto-connect.png](dev/auto-connect.png)
-
 ## Architecture Overview
 
 This is a React Three Fiber (R3F) application with peer-to-peer networking using PeerJS. The app allows multiple browser tabs to connect and synchronize in a 3D environment.
