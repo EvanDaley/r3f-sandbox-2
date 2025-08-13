@@ -1,4 +1,4 @@
-﻿import { OrbitControls, Stage, PerspectiveCamera, Environment, Html } from '@react-three/drei';
+﻿import {OrbitControls, Stage, PerspectiveCamera, Environment, Html, OrthographicCamera} from '@react-three/drei';
 import React, { Suspense } from 'react';
 import { useScene1Game } from '../hooks/useScene1Game';
 
@@ -10,8 +10,9 @@ export default function Scene({ sceneIndex }) {
             <Suspense fallback={null}>
                 <Environment preset="studio" background={true} blur={1.5} />
             </Suspense>
+            {/*<PerspectiveCamera makeDefault position={[0,0,0]} zoom={1} />*/}
 
-            <Stage adjustCamera={false} intensity={0.5} contactShadow shadows>
+            <Stage adjustCamera={false} intensity={1} contactShadow shadows>
                 <Html transform occlude={'blending'} position={[0, 0, 0]} scale={0.5}>
                     <div style={{
                         padding: 20,
