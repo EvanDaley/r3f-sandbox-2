@@ -11,6 +11,7 @@ export default function Scene({ sceneIndex }) {
             {/*    <Environment preset="studio" background={true} blur={1.5} />*/}
             {/*</Suspense>*/}
             {/*<PerspectiveCamera makeDefault position={[0,0,0]} zoom={1} />*/}
+            <PerspectiveCamera makeDefault position={[0, 0, 9]} fov={30} zoom={1} />
 
             <Stage adjustCamera={false} intensity={1} contactShadow shadows>
                 <Html transform occlude={'blending'} position={[0, 0, 0]} scale={0.5}>
