@@ -1,37 +1,9 @@
 ﻿import { OrbitControls, Stage, PerspectiveCamera, Environment, Html } from '@react-three/drei';
-import React, { Suspense, useEffect } from 'react';
-import { useScene1Store } from '../stores/scene1Store';
-import { usePeerStore } from '../stores/peerStore';
+import React, { Suspense } from 'react';
+import { useScene1Game } from '../hooks/useScene1Game';
 
 export default function Scene({ sceneIndex }) {
-    const { clickCounts, isInitialized, initializeScene, initializePlayer } = useScene1Store();
-    const { connections, isHost, peerId } = usePeerStore();
-
-    useEffect(() => {
-        // Initialize scene when it loads
-        if (isHost && !isInitialized) {
-            const startTime = Date.now();
-            initializeScene(startTime);
-            
-            // Initialize all connected players
-            Object.keys(connections).forEach(playerId => {
-                initializePlayer(playerId);
-            });
-
-            // Broadcast initialization to all clients
-            broadcastSceneInit(startTime);
-        } else if (!isHost) {
-            // Client: initialize self if not already done
-            if (peerId) {
-                initializePlayer(peerId);
-            }
-        }
-    }, [isHost, isInitialized, connections, peerId]);
-
-    const handleClick = () => {
-        // Everyone uses the same click mechanism
-        sendPlayerClick();
-    };
+    const { clickCounts, handleClick, playerNames } = useScene1Game();
 
     return (
         <>
@@ -69,7 +41,7 @@ export default function Scene({ sceneIndex }) {
                         <div>
                             <h3>Click Leaderboard:</h3>
                             {Object.entries(clickCounts).map(([playerId, clicks]) => {
-                                const playerName = connections[playerId]?.name || 'Unknown';
+                                const playerName = playerNames[playerId] || 'Unknown';
                                 return (
                                     <div key={playerId} style={{ margin: '5px 0' }}>
                                         {playerName}: {clicks} clicks
@@ -83,57 +55,3 @@ export default function Scene({ sceneIndex }) {
         </>
     );
 }
-
-function sendPlayerClick() {
-    const { connections, isHost, peerId } = usePeerStore.getState();
-    
-    if (isHost) {
-        // Host sends message to themselves via the message router
-        const { routeMessage } = require('../networking/MessageRouter');
-        routeMessage(peerId, {
-            scene: 'scene1',
-            type: 'playerClick',
-            payload: {}
-        });
-    } else {
-        // Client sends to host (first connection that's not us)
-        const hostConnection = Object.values(connections).find(({ conn }) => conn && conn.open);
-        if (hostConnection) {
-            hostConnection.conn.send({
-                scene: 'scene1',
-                type: 'playerClick',
-                payload: {}
-            });
-        }
-    }
-}
-
-function broadcastSceneInit(startTime) {
-    const { connections } = usePeerStore.getState();
-    const { clickCounts } = useScene1Store.getState();
-    
-    const message = {
-        scene: 'scene1',
-        type: 'sceneInit',
-        payload: { 
-            startTime,
-            playerData: { clickCounts }
-        }
-    };
-    
-    Object.values(connections).forEach(({ conn }) => {
-        if (conn && conn.open) {
-            conn.send(message);
-        }
-    });
-}
-//
-// import { broadcast } from '../networking/PeerManager';
-//
-// const sendMyPosition = (pos) => {
-//     broadcast({
-//         scene: 'scene1',
-//         type: 'positionUpdate',
-//         payload: { x: pos.x, y: pos.y, z: pos.z },
-//     });
-// };
