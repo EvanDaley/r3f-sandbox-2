@@ -7,9 +7,9 @@ export default function Scene({ sceneIndex }) {
 
     return (
         <>
-            <Suspense fallback={null}>
-                <Environment preset="studio" background={true} blur={1.5} />
-            </Suspense>
+            {/*<Suspense fallback={null}>*/}
+            {/*    <Environment preset="studio" background={true} blur={1.5} />*/}
+            {/*</Suspense>*/}
             {/*<PerspectiveCamera makeDefault position={[0,0,0]} zoom={1} />*/}
 
             <Stage adjustCamera={false} intensity={1} contactShadow shadows>

@@ -23,15 +23,12 @@ export default function Scene() {
                 <Environment preset="studio" background blur={1.5} />
             </Suspense>
 
-            <Stage adjustCamera={false} intensity={0.5} contactShadow shadows>
-                <OrbitControls target={[1, 1, 0]} />
+            <OrbitControls target={[1, 1, 0]} />
 
-                {/* Video Plane */}
-                <VideoPlane
-                    videoUrl={asset('/videos/10.mp4')}
-                    fallbackUrl={asset('/videos/10.jpg')}
-                />
-            </Stage>
+            <VideoPlane
+                videoUrl={asset('/videos/10.mp4')}
+                fallbackUrl={asset('/videos/10.jpg')}
+            />
         </>
     )
 }
