@@ -1,10 +1,12 @@
 import create from 'zustand'
 import WelcomeScreen from '../scenes/WelcomeScreen'
 import Scene1 from '../scenes/Scene1'
+import Scene2 from '../scenes/Scene2'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
   { id: 'scene1', scene: Scene1 },
+  { id: 'scene2', scene: Scene2 },
 ]
 
 const defaultScene = 'welcome'

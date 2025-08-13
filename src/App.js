@@ -5,8 +5,8 @@ import HTMLContent  from './structural_html/HTMLContent.js'
 function App() {
     return (
         <>
-            <HTMLContent/>
             <ThreeCanvas/>
+            <HTMLContent/>
         </>
     );
 }

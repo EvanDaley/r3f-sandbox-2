@@ -1,6 +1,6 @@
-﻿import { Html, Loader } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import React, { Suspense } from 'react'
+﻿import {Html, Loader} from '@react-three/drei'
+import {Canvas} from '@react-three/fiber'
+import React, {Suspense} from 'react'
 import useSceneStore from '../stores/sceneStore'
 
 export default function ThreeCanvas() {
@@ -8,12 +8,17 @@ export default function ThreeCanvas() {
 
     return (
         <>
-            <Canvas dpr={[1, 2]}>
+            <Canvas
+                dpr={[1, 2]}
+                style={{
+                    zIndex: 20
+                }}
+            >
                 <Suspense fallback={null}>
                     {SceneComponent && React.createElement(SceneComponent)}
                 </Suspense>
             </Canvas>
-            <Loader />
+            <Loader/>
         </>
     )
 }
