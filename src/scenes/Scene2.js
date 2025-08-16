@@ -5,8 +5,6 @@ import { useThree } from '@react-three/fiber'
 import { useSpring, animated } from '@react-spring/three'
 import Pylon from "../components/props/Pylon";
 import LinesRobot from "../components/characters/LinesRobot";
-import ExampleSprite from "../components/props/examples/ExampleSprite";
-import ExamplePlane from "../components/props/examples/ExamplePlane";
 
 const Cell = React.forwardRef(function Cell({ position, onClick }, ref) {
     const [hovered, setHovered] = useState(false)
