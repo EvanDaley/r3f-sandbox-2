@@ -3,17 +3,10 @@ import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { OrbitControls, OrthographicCamera, Stage } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useSpring, animated } from '@react-spring/three'
-
-// Reset any environment/background from previous scenes
-// function ResetEnvAndBg() {
-//     const { scene } = useThree()
-//     useEffect(() => {
-//         scene.environment = null
-//         scene.background = new THREE.Color('#111111')
-//         console.log('Environment/background reset for grid scene')
-//     }, [scene])
-//     return null
-// }
+import Pylon from "../components/props/Pylon";
+import LinesRobot from "../components/characters/LinesRobot";
+import ExampleSprite from "../components/props/examples/ExampleSprite";
+import ExamplePlane from "../components/props/examples/ExamplePlane";
 
 const Cell = React.forwardRef(function Cell({ position, onClick }, ref) {
     const [hovered, setHovered] = useState(false)
@@ -120,12 +113,23 @@ function Room() {
 export default function Scene() {
     return (
         <>
-            {/*<Stage adjustCamera={false} intensity={1} contactShadow shadows>*/}
-
             <color attach="background" args={['#111111']} />
-            {/*<ResetRenderer />*/}
-            {/*<ResetEnvAndBg />*/}
+
             <Suspense fallback={null}>
+                <LinesRobot position={[-4,0,0]}/>
+                <LinesRobot position={[4,0,0]}/>
+                {/*<ExampleSprite position={[0,1,5]}/>*/}
+                {/*<ExampleSprite position={[0,1,-5]}/>*/}
+
+                <Pylon position={[0,1,0]}/>
+
+                {/*{[...Array(3)].map((_, x) =>*/}
+                {/*    [...Array(3)].map((_, z) => (*/}
+                {/*        <Pylon key={`${x}-${z}`} position={[x * 5 - 5, 1, z * 5 - 5]} />*/}
+                {/*    ))*/}
+                {/*)}*/}
+
+
                 <group position={[2, 3, 0]}>
                     <pointLight color="#66ffff" intensity={3} decay={3} distance={25} />
                 </group>
