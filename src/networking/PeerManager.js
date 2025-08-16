@@ -6,6 +6,8 @@ import {getRandomName} from "../helpers/stringHelpers";
 
 
 // Helper function to detect local development environment and role
+// When working locally I open it in two tabs. The first tab is on 3000 and the second tab is on 3001.
+// They both use hardcoded peerIds so that I can easily have them find each other.
 const getLocalDevConfig = () => {
     const isLocalhost = window.location.hostname === 'localhost';
     const port = window.location.port;
@@ -23,6 +25,11 @@ const getLocalDevConfig = () => {
     return { role, peerId, playerName, isLocalDev: true };
 };
 
+// Set up Peer.js and attach some handlers
+// When we register ourselves, the peer server sends us confirmation and hits the 'open' handler.
+// For local development, we immediately try to connect to the host as soon as the server says we are valid.
+// When a new client tries to connect to us, that hits the 'connection' handler.
+// All other events are sent through the 'data' handler and passesd to our custom router class.
 export const initPeer = (onConnected) => {
     const { peer, setPeer, setPeerId, setIsHost, setIsClient, addConnection, setPlayerName } = usePeerStore.getState();
     if (peer) return peer;
@@ -96,6 +103,8 @@ export const connectToPeer = (peerId, onConnected) => {
     setIsClient(true);
 };
 
+// Set up handlers on the new connection. We should be able to call this on connections both for sending, and
+// receiving. On 'open' send player info. On 'data', call the custom router.
 function setupConnection(conn, onConnected) {
     const { addConnection, playerName, isClient } = usePeerStore.getState();
 
@@ -105,6 +114,7 @@ function setupConnection(conn, onConnected) {
         
         // If we're a client connecting to host, send our player info
         if (isClient && playerName) {
+            // TODO: Get this working for non-local environments. Is it a timing issue? Or we don't have player name?
             conn.send({
                 scene: 'common',
                 type: 'playerInfo',
