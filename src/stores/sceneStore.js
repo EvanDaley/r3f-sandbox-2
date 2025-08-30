@@ -3,11 +3,13 @@ import WelcomeScreen from '../scenes/WelcomeScreen'
 import Scene1 from '../scenes/Scene1'
 import Scene2 from '../scenes/Scene2'
 import Sandbox from '../scenes/Sandbox'
+import VideoPlane from '../scenes/Examples/VideoPlane'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
   { id: 'scene1', scene: Scene1 },
   { id: 'scene2', scene: Scene2 },
+  { id: 'videoPlane', scene: VideoPlane },
   { id: 'sandbox', scene: Sandbox },
 ]
 

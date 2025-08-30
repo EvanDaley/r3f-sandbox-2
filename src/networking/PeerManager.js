@@ -45,16 +45,16 @@ export const initPeer = (onConnected) => {
         config: {
             iceServers: [
                 { urls: 'stun:54.190.188.230:3478' },
-                // {
-                //     urls: 'turn:54.190.188.230:3478?transport=udp',
-                //     username: 'testuser',
-                //     credential: 'testpass'
-                // },
-                // {
-                //     urls: 'turn:54.190.188.230:3478?transport=tcp',
-                //     username: 'testuser',
-                //     credential: 'testpass'
-                // }
+                {
+                    urls: 'turn:54.190.188.230:3478?transport=udp',
+                    username: 'testuser',
+                    credential: 'testpass'
+                },
+                {
+                    urls: 'turn:54.190.188.230:3478?transport=tcp',
+                    username: 'testuser',
+                    credential: 'testpass'
+                }
             ]
         }
     });
