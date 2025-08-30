@@ -35,7 +35,29 @@ export const initPeer = (onConnected) => {
     if (peer) return peer;
 
     const localConfig = getLocalDevConfig();
-    const newPeer = localConfig ? new Peer(localConfig.peerId) : new Peer();
+    // const newPeer = localConfig ? new Peer(localConfig.peerId) : new Peer();
+
+    const newPeer = new Peer(localConfig ? localConfig.peerId : undefined, {
+        host: '0.peerjs.com',
+        port: 443,
+        path: '/',
+        secure: true,
+        config: {
+            iceServers: [
+                { urls: 'stun:54.190.188.230:3478' },
+                // {
+                //     urls: 'turn:54.190.188.230:3478?transport=udp',
+                //     username: 'testuser',
+                //     credential: 'testpass'
+                // },
+                // {
+                //     urls: 'turn:54.190.188.230:3478?transport=tcp',
+                //     username: 'testuser',
+                //     credential: 'testpass'
+                // }
+            ]
+        }
+    });
     
     // Set player name for localhost development
     if (localConfig && localConfig.playerName) {
@@ -50,9 +72,7 @@ export const initPeer = (onConnected) => {
         // Auto-connect for local development
         if (localConfig && localConfig.role === 'client') {
             console.log('Auto-connecting client to host...');
-            setTimeout(() => {
-                connectToPeer('host-local-dev', onConnected);
-            }, 1000); // Small delay to ensure host is ready
+            connectToPeer('host-local-dev', onConnected);
         }
     });
 
@@ -106,9 +126,12 @@ export const connectToPeer = (peerId, onConnected) => {
 // Set up handlers on the new connection. We should be able to call this on connections both for sending, and
 // receiving. On 'open' send player info. On 'data', call the custom router.
 function setupConnection(conn, onConnected) {
+    console.log('setup connection')
     const { addConnection, playerName, isClient } = usePeerStore.getState();
 
     conn.on('open', () => {
+        console.log('Connected to', conn.peer);
+        console.log('Connected to', conn.peer);
         console.log('Connected to', conn.peer);
         addConnection(conn.peer, conn);
         
@@ -128,6 +151,18 @@ function setupConnection(conn, onConnected) {
     conn.on('data', (data) => {
         console.log('Received from', conn.peer, ':', data);
         routeMessage(conn.peer, data);
+    });
+
+    conn.on('iceStateChanged', (state) => {
+        console.log('ICE state changed for', conn.peer, ':', state);
+    });
+
+    conn.on('error', (err) => {
+        console.error('Connection error with', conn.peer, err);
+    });
+
+    conn.on('close', () => {
+        console.log('Connection closed with', conn.peer);
     });
 }
 
