@@ -3,8 +3,9 @@ import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { OrbitControls, OrthographicCamera, Stage } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useSpring, animated } from '@react-spring/three'
-import Pylon from "../components/props/Pylon";
+import Pylon from "../components/props/sprites/Pylon";
 import LinesRobot from "../components/characters/LinesRobot";
+import Tree from "../components/props/sprites/Tree";
 
 const Cell = React.forwardRef(function Cell({ position, onClick }, ref) {
     const [hovered, setHovered] = useState(false)
@@ -126,6 +127,22 @@ export default function Scene() {
                 {/*        <Pylon key={`${x}-${z}`} position={[x * 5 - 5, 1, z * 5 - 5]} />*/}
                 {/*    ))*/}
                 {/*)}*/}
+
+                <Tree position={[-2 + -4,1,-6]}/>
+                <Tree position={[-2 + -3,1,-6]}/>
+                <Tree position={[-2 + -2,1,-6]}/>
+                <Tree position={[-2 + -1,1,-6]}/>
+                <Tree position={[-2 + 0,1,-6]}/>
+                <Tree position={[-2 + 1,1,-6]}/>
+                <Tree position={[-2 + 2,1,-6]}/>
+                <Tree position={[-2 + 2,1,-6]}/>
+                <Tree position={[-2 + 3,1,-6]}/>
+                <Tree position={[-2 + 4,1,-6]}/>
+                <Tree position={[-2 + 5,1,-6]}/>
+                <Tree position={[-2 + 6,1,-6]}/>
+                <Tree position={[-2 + 7,1,-6]}/>
+                <Tree position={[-2 + 8,1,-6]}/>
+                <Tree position={[-2 + 8,1,-6]}/>
 
 
                 <group position={[2, 3, 0]}>

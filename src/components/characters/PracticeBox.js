@@ -1,18 +1,27 @@
-import React, { useMemo } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useEffect, useMemo } from 'react'
+import { useGLTF, useAnimations } from '@react-three/drei'
 
 function asset(path) {
-  const base = window.location.pathname.replace(/\/$/, '')
-  return `${base}${path}`
+    const base = window.location.pathname.replace(/\/$/, '')
+    return `${base}${path}`
 }
 
 export default function PracticeBox(props) {
-  const { scene } = useGLTF(asset('/models/box.glb'))
+    const { scene, animations } = useGLTF(asset('/models/box.glb'))
+    const clonedScene = useMemo(() => scene.clone(), [scene])
 
-  // Memoize a cloned copy so we don’t reuse the disposed original
-  const clonedScene = useMemo(() => scene.clone(), [scene])
+    // Hook into animations
+    const { actions } = useAnimations(animations, clonedScene)
 
-  return <primitive object={clonedScene} {...props} />
+    useEffect(() => {
+        if (actions) {
+            // Play the first animation
+            const [firstAction] = Object.values(actions)
+            firstAction?.reset().play()
+        }
+    }, [actions])
+
+    return <primitive object={clonedScene} {...props} />
 }
 
 useGLTF.preload(asset('/models/box.glb'))

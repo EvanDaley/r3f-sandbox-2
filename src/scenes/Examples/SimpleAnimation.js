@@ -1,4 +1,4 @@
-﻿import React, { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import {
     OrbitControls,
     Stage,
@@ -31,7 +31,7 @@ export default function Scene() {
                 <directionalLight
                     position={[5, 10, 5]}
                     intensity={.5
-                }
+                    }
                     castShadow
                 />
             </Suspense>
