@@ -4,6 +4,8 @@ import { usePeerStore } from '../stores/peerStore';
 import { routeMessage } from './MessageRouter';
 import {getRandomName} from "../helpers/stringHelpers";
 
+const localHostName = 'local-host-dev-1'
+
 
 // Helper function to detect local development environment and role
 // When working locally I open it in two tabs. The first tab is on 3000 and the second tab is on 3001.
@@ -17,7 +19,7 @@ const getLocalDevConfig = () => {
     
     const role = envRole || (port === '3001' ? 'client' : 'host');
     const peerId = role === 'host'
-        ? 'host-local-dev'
+        ? localHostName
         : `client-local-dev-${Math.floor(Math.random() * 10000)}`;
 
     const playerName = port === '3000' ? 'Evan' : getRandomName();
@@ -72,7 +74,7 @@ export const initPeer = (onConnected) => {
         // Auto-connect for local development
         if (localConfig && localConfig.role === 'client') {
             console.log('Auto-connecting client to host...');
-            connectToPeer('host-local-dev', onConnected);
+            connectToPeer(localHostName, onConnected);
         }
     });
 

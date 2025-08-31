@@ -59,7 +59,8 @@ function SmoothMove({ children, position }) {
         const from = prevPos.current
         const to = new THREE.Vector3(...position)
         const distance = from.distanceTo(to)
-        const duration = Math.min(Math.max(distance * 100, 200), 1000)
+        // const duration = Math.min(Math.max(distance * 100, 200), 1000)
+        const duration = 50
 
         api.start({
             pos: position,
@@ -102,8 +103,8 @@ function Room() {
             {cells.map((pos) => (
                 <Cell onClick={onTargetClicked} key={`cell-${pos[0]}-${pos[2]}`} position={pos} />
             ))}
-            <SmoothMove position={[position[0] + 2, position[1], position[2]]}>
-                {/* <Robot scale={[1, 1, 1]} /> */}
+            <SmoothMove position={[position[0], position[1], position[2]]}>
+                 <LinesRobot scale={[1, 1, 1]} />
             </SmoothMove>
         </group>
     )
@@ -116,7 +117,7 @@ export default function Scene() {
 
             <Suspense fallback={null}>
                 <LinesRobot position={[-4,0,0]}/>
-                <LinesRobot position={[4,0,0]}/>
+                {/*<LinesRobot position={[4,0,0]}/>*/}
                 {/*<ExampleSprite position={[0,1,5]}/>*/}
                 {/*<ExampleSprite position={[0,1,-5]}/>*/}
 
