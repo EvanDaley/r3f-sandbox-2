@@ -18,11 +18,11 @@ export function playerClick(fromPeerId, payload) {
         console.log(`${fromPeerId} now has ${newClickCount} clicks`);
         
         // Broadcast updated click count to all players
-        broadcastClickUpdate(fromPeerId, newClickCount);
+        broadcastClicksEvent(fromPeerId, newClickCount);
     }
 }
 
-export function clickUpdate(fromPeerId, payload) {
+export function clicksEvent(fromPeerId, payload) {
     const { peerId, clickCount } = payload;
     console.log(`Received click update: ${peerId} has ${clickCount} clicks`);
     
@@ -45,12 +45,12 @@ export function sceneInit(fromPeerId, payload) {
     });
 }
 
-function broadcastClickUpdate(peerId, clickCount) {
+function broadcastClicksEvent(peerId, clickCount) {
     const { connections } = usePeerStore.getState();
     
     const message = {
         scene: 'scene1',
-        type: 'clickUpdate',
+        type: 'clicksEvent',
         payload: { peerId, clickCount }
     };
     

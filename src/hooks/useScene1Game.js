@@ -31,7 +31,7 @@ export const useScene1Game = () => {
 
     // Handle click events
     const handleClick = () => {
-        sendPlayerClick();
+        sendLocalPlayerClick();
     };
 
     // Map names back onto the clicks. The click array is just ids and click counts
@@ -52,7 +52,7 @@ export const useScene1Game = () => {
 };
 
 // Networking functions
-function sendPlayerClick() {
+function sendLocalPlayerClick() {
     const { connections, isHost, peerId } = usePeerStore.getState();
     
     if (isHost) {
