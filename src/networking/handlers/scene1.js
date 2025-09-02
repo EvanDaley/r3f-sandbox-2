@@ -1,11 +1,8 @@
+// handlers/scene1.js
+
 import { useScene1Store } from '../../stores/scene1Store';
 import { useGlobalGameStore } from '../../stores/globalGameStore';
 import { usePeerStore } from '../../stores/peerStore';
-
-export function positionUpdate(fromPeerId, payload) {
-    // Update position of remote player in scene1
-    console.log(`Got position from ${fromPeerId}:`, payload);
-}
 
 export function playerClick(fromPeerId, payload) {
     console.log(`Player ${fromPeerId} clicked in scene1`);

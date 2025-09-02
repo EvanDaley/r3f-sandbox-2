@@ -31,7 +31,7 @@ const getLocalDevConfig = () => {
 // When we register ourselves, the peer server sends us confirmation and hits the 'open' handler.
 // For local development, we immediately try to connect to the host as soon as the server says we are valid.
 // When a new client tries to connect to us, that hits the 'connection' handler.
-// All other events are sent through the 'data' handler and passesd to our custom router class.
+// All other events are sent through the 'data' handler and passed to our custom router class per connection.
 export const initPeer = (onConnected) => {
     const { peer, setPeer, setPeerId, setIsHost, setIsClient, addConnection, setPlayerName } = usePeerStore.getState();
     if (peer) return peer;
@@ -132,8 +132,6 @@ function setupConnection(conn, onConnected) {
     const { addConnection, playerName, isClient } = usePeerStore.getState();
 
     conn.on('open', () => {
-        console.log('Connected to', conn.peer);
-        console.log('Connected to', conn.peer);
         console.log('Connected to', conn.peer);
         addConnection(conn.peer, conn);
         
