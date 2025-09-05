@@ -20,6 +20,8 @@ export function playerClick(fromPeerId, payload) {
 
         // Figure out new position for the person that clicked
         const FLAP_STRENGTH = 3 // tune to feel right
+
+
         const { getPlayerPosition, updatePlayerPosition } = useBirdStore.getState()
         const [x, y, z] = getPlayerPosition(fromPeerId)
         const newPosition = [x, y + FLAP_STRENGTH, z]

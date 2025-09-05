@@ -31,18 +31,24 @@ export default function Scene({ sceneIndex }) {
                 {/*/>*/}
 
                 {/*Characters*/}
-                {Object.entries(playerPositions).map(([playerId, playerPosition]) => {
+                {Object.entries(playerPositions).map(([playerId, playerPosition], index) => {
                     const playerName = playerNames[playerId] || 'Unknown';
+
+                    // simple hash → color mapping
+                    const colors = ["red", "green", "blue", "orange", "purple", "yellow", "pink", "cyan"];
+                    const color = colors[index % colors.length];
+
                     return (
                         <Box
                             key={playerId}
-                            // scale={[0.1, 0.1, 0.1]}
                             scale={[0.5, 0.5, 0.5]}
-                            // scale={[1, 1, 1]}
                             position={playerPosition}
-                        />
+                        >
+                            <meshStandardMaterial color={color} />
+                        </Box>
                     );
                 })}
+
 
                 {/*Camera and Controls*/}
                 <OrthographicCamera makeDefault position={[0,0, 15]} zoom={60} />
