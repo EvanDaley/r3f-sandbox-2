@@ -2,64 +2,114 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-const storeName = `BirdStore-${Math.random().toString(36).substr(2, 5)}`;
+const storeName = `BirdStore1-${Math.random().toString(36).substr(2, 5)}`;
+console.log('my store is', storeName);
 
-export const useBirdStore = create(devtools((set, get) => ({
-    clickCounts: {}, // { peerId: clickCount }
-    sceneStartTime: null,
-    isInitialized: false,
+export const useBirdStore = create(
+    devtools(
+        (set, get) => ({
+            clickCounts: {}, // { peerId: clickCount }
+            sceneStartTime: null,
+            isInitialized: false,
+            playerPositions: {},
 
-    // Actions
-    initializeScene: (startTime) =>
-        set({
-            clickCounts: {},
-            sceneStartTime: startTime,
-            isInitialized: true,
+            // Actions
+            initializeScene: (startTime) =>
+                set(
+                    {
+                        clickCounts: {},
+                        playerPositions: {},
+                        sceneStartTime: startTime,
+                        isInitialized: true,
+                    },
+                    false,
+                    'initializeScene'
+                ),
+
+            updatePlayerClicks: (peerId, clickCount) =>
+                set(
+                    (state) => ({
+                        clickCounts: {
+                            ...state.clickCounts,
+                            [peerId]: clickCount,
+                        },
+                    }),
+                    false,
+                    `updatePlayerClicks/${peerId}`
+                ),
+
+            incrementPlayerClicks: (peerId) =>
+                set(
+                    (state) => ({
+                        clickCounts: {
+                            ...state.clickCounts,
+                            [peerId]: (state.clickCounts[peerId] || 0) + 1,
+                        },
+                    }),
+                    false,
+                    `incrementPlayerClicks/${peerId}`
+                ),
+
+            updatePlayerPosition: (peerId, position) =>
+                set(
+                    (state) => ({
+                        playerPositions: {
+                            ...state.playerPositions,
+                            [peerId]: position,
+                        },
+                    }),
+                    false,
+                    `updatePlayerPosition/${peerId}`
+                ),
+
+            initializePlayer: (peerId) => {
+                console.log('Initialized player', peerId);
+
+                const startingPos = [0, Math.random() * (5 - 3) + 3, 0];
+
+                set(
+                    (state) => ({
+                        clickCounts: {
+                            ...state.clickCounts,
+                            [peerId]: state.clickCounts[peerId] || 0,
+                        },
+                        playerPositions: {
+                            ...state.playerPositions,
+                            [peerId]: startingPos,
+                        },
+                    }),
+                    false,
+                    `initializePlayer/${peerId}`
+                );
+
+                console.log('Result', startingPos);
+            },
+
+            reset: () =>
+                set(
+                    {
+                        playerPositions: {},
+                        clickCounts: {},
+                        sceneStartTime: null,
+                        isInitialized: false,
+                    },
+                    false,
+                    'reset'
+                ),
+
+            // Getters
+            getPlayerClicks: (peerId) => get().clickCounts[peerId] || 0,
+            getTotalClicks: () => {
+                const clicks = get().clickCounts;
+                return Object.values(clicks).reduce((sum, count) => sum + count, 0);
+            },
+            getClickLeaderboard: () => {
+                const clicks = get().clickCounts;
+                return Object.entries(clicks).sort(([, a], [, b]) => b - a);
+            },
+            getPlayerPosition: (peerId) =>
+                get().playerPositions[peerId] || [0, 0, 0],
         }),
-
-    updatePlayerClicks: (peerId, clickCount) =>
-        set((state) => ({
-            clickCounts: {
-                ...state.clickCounts,
-                [peerId]: clickCount,
-            },
-        })),
-
-    incrementPlayerClicks: (peerId) =>
-        set((state) => ({
-            clickCounts: {
-                ...state.clickCounts,
-                [peerId]: (state.clickCounts[peerId] || 0) + 1,
-            },
-        })),
-
-    initializePlayer: (peerId) =>
-        set((state) => ({
-            clickCounts: {
-                ...state.clickCounts,
-                [peerId]: state.clickCounts[peerId] || 0,
-            },
-        })),
-
-    reset: () => set({
-        clickCounts: {},
-        sceneStartTime: null,
-        isInitialized: false,
-    }),
-
-    // Getters
-    getPlayerClicks: (peerId) => get().clickCounts[peerId] || 0,
-    getTotalClicks: () => {
-        const clicks = get().clickCounts;
-        return Object.values(clicks).reduce((sum, count) => sum + count, 0);
-    },
-    getClickLeaderboard: () => {
-        const clicks = get().clickCounts;
-        return Object.entries(clicks)
-            .sort(([,a], [,b]) => b - a);
-    },
-}), { name: storeName }));
-
-if (process.env.NODE_ENV === 'development') {
-    window.useScene1Store = useScene1Store;
-}
+        { name: storeName }
+    )
+);

@@ -103,6 +103,7 @@ function sendCurrentSceneState(newPlayerId) {
         payload: { sceneId: currentSceneId }
     });
 
+    // TODO: Get rid of this
     // Send scene-specific state based on current scene
     if (currentSceneId === 'scene1') {
         const { useScene1Store } = require('../../stores/scene1Store');

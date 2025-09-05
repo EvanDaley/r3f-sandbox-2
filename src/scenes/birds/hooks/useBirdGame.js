@@ -13,7 +13,7 @@ export const useBirdGame = () => {
         if (isHost && !isInitialized) {
             const startTime = Date.now();
             initializeScene(startTime);
-            
+
             // Initialize all connected players
             Object.keys(connections).forEach(playerId => {
                 initializePlayer(playerId);
@@ -21,11 +21,6 @@ export const useBirdGame = () => {
 
             // Broadcast initialization to all clients
             broadcastSceneInit(startTime);
-        } else if (!isHost) {
-            // Client: initialize self if not already done
-            if (peerId) {
-                initializePlayer(peerId);
-            }
         }
     }, [isHost, isInitialized, connections, peerId]);
 
@@ -77,17 +72,20 @@ function sendLocalPlayerClick() {
 
 function broadcastSceneInit(startTime) {
     const { connections } = usePeerStore.getState();
-    const { clickCounts } = useBirdStore.getState();
+    const { clickCounts, playerPositions } = useBirdStore.getState();
     
     const message = {
         scene: 'birdScene',
         type: 'sceneInit',
         payload: { 
             startTime,
-            playerData: { clickCounts }
+            playerData: {
+                clickCounts,
+                playerPositions
+            }
         }
     };
-    
+
     Object.values(connections).forEach(({ conn }) => {
         if (conn && conn.open) {
             conn.send(message);

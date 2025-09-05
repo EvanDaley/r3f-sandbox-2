@@ -53,6 +53,3 @@ export const usePeerStore = create(devtools((set) => ({
     }),
 }), { name: storeName }));
 
-if (process.env.NODE_ENV === 'development') {
-    window.usePeerStore = usePeerStore;
-}

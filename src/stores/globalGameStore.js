@@ -46,6 +46,3 @@ export const useGlobalGameStore = create(devtools((set, get) => ({
     },
 }), { name: storeName }));
 
-if (process.env.NODE_ENV === 'development') {
-    window.useGlobalGameStore = useGlobalGameStore;
-}

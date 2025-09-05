@@ -60,6 +60,3 @@ export const useScene1Store = create(devtools((set, get) => ({
     },
 }), { name: storeName }));
 
-if (process.env.NODE_ENV === 'development') {
-    window.useScene1Store = useScene1Store;
-}

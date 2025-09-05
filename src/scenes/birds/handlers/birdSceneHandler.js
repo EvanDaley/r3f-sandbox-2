@@ -36,12 +36,17 @@ export function sceneInit(fromPeerId, payload) {
     console.log(`Bird initialization from host:`, payload);
     
     // Initialize scene with host's data
-    const { initializeScene, updatePlayerClicks } = useBirdStore.getState();
+    const { initializeScene, updatePlayerClicks, updatePlayerPosition } = useBirdStore.getState();
     initializeScene(startTime);
     
     // Set click counts for all players
     Object.entries(playerData.clickCounts || {}).forEach(([peerId, clickCount]) => {
         updatePlayerClicks(peerId, clickCount);
+    });
+
+    // Set positions for all players
+    Object.entries(playerData.playerPositions || {}).forEach(([peerId, playerPosition]) => {
+        updatePlayerPosition(peerId, playerPosition);
     });
 }
 
