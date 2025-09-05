@@ -65,7 +65,9 @@ export const useBirdStore = create(
             initializePlayer: (peerId) => {
                 console.log('Initialized player', peerId);
 
-                const startingPos = [0, Math.random() * (5 - 3) + 3, 0];
+                const highPoint = 2
+                const lowPoint = 2
+                const startingPos = [0, Math.random() * (highPoint - lowPoint) + lowPoint, 0];
 
                 set(
                     (state) => ({
