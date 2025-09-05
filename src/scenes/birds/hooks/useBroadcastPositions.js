@@ -5,7 +5,7 @@ import { usePeerStore } from '../../../stores/peerStore'
 import { useBirdStore } from '../stores/birdStore'
 
 export function useBroadcastPositions() {
-    const TICKS_PER_SECOND = 30
+    const TICKS_PER_SECOND = 10
     const TICK_RATE = 1000 / TICKS_PER_SECOND
 
     useEffect(() => {
