@@ -5,6 +5,9 @@ import { devtools } from 'zustand/middleware';
 const storeName = `BirdStore1-${Math.random().toString(36).substr(2, 5)}`;
 console.log('my store is', storeName);
 
+const highPoint = 20
+const lowPoint = 15
+
 export const useBirdStore = create(
     devtools(
         (set, get) => ({
@@ -65,8 +68,7 @@ export const useBirdStore = create(
             initializePlayer: (peerId) => {
                 console.log('Initialized player', peerId);
 
-                const highPoint = 2
-                const lowPoint = 2
+
                 const startingPos = [0, Math.random() * (highPoint - lowPoint) + lowPoint, 0];
 
                 set(

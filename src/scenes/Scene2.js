@@ -159,7 +159,7 @@ export default function Scene() {
                 enableZoom={true}
                 rotateSpeed={0.12}
                 enablePan={true}
-                enableRotate={false}
+                enableRotate={true}
             />
             {/*</Stage>*/}
         </>

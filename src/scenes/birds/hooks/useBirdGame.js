@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useBirdStore } from '../stores/birdStore';
 import { usePeerStore } from '../../../stores/peerStore';
 import { routeMessage } from '../../../networking/MessageRouter';
+import { useFrame } from '@react-three/fiber'
 
 export const useBirdGame = () => {
     const { clickCounts, isInitialized, initializeScene, initializePlayer } = useBirdStore();
@@ -45,30 +46,6 @@ export const useBirdGame = () => {
         isInitialized
     };
 };
-
-// Networking functions
-function sendLocalPlayerClick() {
-    const { connections, isHost, peerId } = usePeerStore.getState();
-    
-    if (isHost) {
-        // Host sends message to themselves via the message router
-        routeMessage(peerId, {
-            scene: 'birdScene',
-            type: 'playerClick',
-            payload: {}
-        });
-    } else {
-        // Client sends to host (first connection that's not us)
-        const hostConnection = Object.values(connections).find(({ conn }) => conn && conn.open);
-        if (hostConnection) {
-            hostConnection.conn.send({
-                scene: 'birdScene',
-                type: 'playerClick',
-                payload: {}
-            });
-        }
-    }
-}
 
 function broadcastSceneInit(startTime) {
     const { connections } = usePeerStore.getState();

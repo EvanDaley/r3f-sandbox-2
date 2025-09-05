@@ -1,30 +1,51 @@
-import {OrbitControls, Stage, PerspectiveCamera, Environment, Html, OrthographicCamera} from '@react-three/drei';
+import {OrbitControls, Stage, PerspectiveCamera, Environment, Html, OrthographicCamera, Box} from '@react-three/drei';
 import React, { Suspense } from 'react';
 import { useBirdGame } from './hooks/useBirdGame';
 import { useBirdStore} from "./stores/birdStore";
 import PracticeBox from "../../components/characters/PracticeBox";
+import ExamplePlane from "../../components/props/examples/ExamplePlane";
+import {useFlapControls} from "./hooks/useFlapControls";
+import {useGravityLoop} from "./hooks/useGravityLoop";
+import {useBroadcastPositions} from "./hooks/useBroadcastPositions";
 
 export default function Scene({ sceneIndex }) {
     const { clickCounts, handleClick, playerNames } = useBirdGame();
     const { playerPositions } = useBirdStore();
 
+    useGravityLoop()
+    useBroadcastPositions()
+    useFlapControls()
+
     return (
         <>
 
-            <Stage adjustCamera={false} intensity={1} contactShadow shadows>
+            <Stage adjustCamera={false} intensity={1}>
+                {/*Ground*/}
+                <ExamplePlane
+                    position={[0,-2.2,0]}
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    scale={[10,10,10]}
+                />
+
+                {/*<Box*/}
+                {/*/>*/}
+
+                {/*Characters*/}
                 {Object.entries(playerPositions).map(([playerId, playerPosition]) => {
                     const playerName = playerNames[playerId] || 'Unknown';
                     return (
-                        <PracticeBox
+                        <Box
                             key={playerId}
-                            scale={[0.1, 0.1, 0.1]}
+                            // scale={[0.1, 0.1, 0.1]}
+                            scale={[0.5, 0.5, 0.5]}
                             // scale={[1, 1, 1]}
                             position={playerPosition}
                         />
                     );
                 })}
 
-                <OrthographicCamera makeDefault position={[15, 15, 15]} zoom={60} />
+                {/*Camera and Controls*/}
+                <OrthographicCamera makeDefault position={[0,0, 15]} zoom={60} />
                 <OrbitControls
                     minPolarAngle={Math.PI / 10}
                     maxPolarAngle={Math.PI / 1.5}
@@ -33,6 +54,12 @@ export default function Scene({ sceneIndex }) {
                     enablePan={true}
                     enableRotate={true}
                 />
+                {/*<OrbitControls*/}
+                {/*    minPolarAngle={Math.PI / 2}*/}
+                {/*    maxPolarAngle={Math.PI / 2}*/}
+                {/*    enableRotate={false} // optional, to fully lock it*/}
+                {/*/>*/}
+
 
             </Stage>
         </>
