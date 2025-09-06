@@ -147,7 +147,7 @@ export default function Scene() {
 
 
                 <group position={[2, 3, 0]}>
-                    <pointLight color="#66ffff" intensity={3} decay={3} distance={25} />
+                    <pointLight color="#66ffff" intensity={15} decay={1} distance={250} />
                 </group>
                 <ambientLight intensity={0.3} color="#aaffaa" />
                 <OrthographicCamera makeDefault position={[15, 15, 15]} zoom={60} />
