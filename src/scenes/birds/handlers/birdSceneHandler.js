@@ -59,7 +59,6 @@ export function sceneInit(fromPeerId, payload) {
     const { startTime, playerData } = payload;
     console.log(`Bird initialization from host:`, payload);
     
-    // Initialize scene with host's data
     const { initializeScene, updatePlayerClicks, updatePlayerPosition } = useBirdStore.getState();
     initializeScene(startTime);
     

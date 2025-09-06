@@ -1,6 +1,7 @@
 import useSceneStore from '../../stores/sceneStore';
 import { usePeerStore } from '../../stores/peerStore';
 import {useScene1Store} from "../../stores/scene1Store";
+import {useBirdStore} from "../../scenes/birds/stores/birdStore";
 
 export function changeScene(fromPeerId, payload) {
     const { sceneId } = payload;
@@ -181,7 +182,26 @@ function sendCurrentSceneState(newPlayerId) {
         });
     }
 
+    // TODO: Get rid of this
+    // Send scene-specific state based on current scene
+    if (currentSceneId === 'simpleGrid') {
+        const { useBirdStore } = require('../../scenes/birds/stores/birdStore');
+        const { sceneStartTime, playerPositions } = useBirdStore.getState();
 
+        // Initialize the new player in scene1 store
+        const { initializePlayer } = useScene1Store.getState();
+        initializePlayer(newPlayerId);
+
+        // Send current scene1 state
+        newPlayerConnection.conn.send({
+            scene: 'simpleGrid',
+            type: 'sceneInit',
+            payload: {
+                startTime: sceneStartTime,
+                playerData: { playerPositions }
+            }
+        });
+    }
     
     console.log(`Sent current scene state (${currentSceneId}) to new player ${newPlayerId}`);
 }
