@@ -17,7 +17,7 @@ const scenes = [
   { id: 'grid1', scene: GridScene },
 ]
 
-const defaultScene = 'grid1'
+const defaultScene = 'welcome'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,
