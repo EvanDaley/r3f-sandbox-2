@@ -4,6 +4,7 @@ import Scene1 from '../scenes/Scene1'
 import Scene2 from '../scenes/Scene2'
 import Sandbox from '../scenes/Sandbox'
 import VideoPlane from '../scenes/Examples/VideoPlane'
+import GridScene from '../scenes/Examples/GridScene'
 import BirdScene from '../scenes/birds/BirdScene'
 
 const scenes = [
@@ -13,9 +14,10 @@ const scenes = [
   { id: 'videoPlane', scene: VideoPlane },
   { id: 'sandbox', scene: Sandbox },
   { id: 'birdScene', scene: BirdScene },
+  { id: 'grid1', scene: GridScene },
 ]
 
-const defaultScene = 'welcome'
+const defaultScene = 'grid1'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,
