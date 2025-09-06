@@ -17,9 +17,10 @@ import GridEffectsComposer from "./effects/GridEffectsComposer";
 import UnevenlySpacedGrid from "./objects/UnevenlySpacedGrid";
 import PulsingLight from "./objects/PulsingLight";
 import ExamplePlane from "../../components/props/examples/ExamplePlane";
+import {useSceneInitializer} from "./hooks/useSceneInitializer";
 
 export default function Scene() {
-
+    useSceneInitializer()
 
     return (
         <>

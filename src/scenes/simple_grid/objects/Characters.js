@@ -4,7 +4,7 @@ import { useSimpleGridStore } from "../stores/simpleGridStore";
 
 export default function Characters() {
     const { playerPositions } = useSimpleGridStore();
-    const debugging = true;
+    const debugging = false;
 
     // simple hash → color mapping
     const colors = ["red", "green", "blue", "orange", "purple", "yellow", "pink", "cyan"];
