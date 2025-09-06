@@ -38,7 +38,7 @@ export default function Scene() {
                 shadows={{ type: 'accumulative', bias: -0.001, intensity: Math.PI }}
                 adjustCamera={false}
             >
-                <Box rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} />
+                {/*<Box rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} />*/}
                 {/*<Box rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} position={[2,1,0]} />*/}
                 {/*<Box rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} position={[5,1,0]} />*/}
                 {/*<Box rotation={[0, Math.PI, 0]} scale={[2, 2, 2]} position={[15,1,0]} />*/}
@@ -59,11 +59,17 @@ export default function Scene() {
 
             <OrbitControls
                 autoRotate
-                autoRotateSpeed={0.05}
+                autoRotateSpeed={0.00}
                 enableZoom={true}
                 makeDefault
-                minPolarAngle={Math.PI / 2}
+                // minPolarAngle={Math.PI / 2}
                 maxPolarAngle={Math.PI / 2}
+                onChange={(e) => {
+                    const cam = e.target.object
+                    if (cam.position.y < 0) {
+                        cam.position.y = 0     // clamp to ground
+                    }
+                }}
             />
 
             <EffectComposer disableNormalPass>
