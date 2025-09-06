@@ -96,7 +96,12 @@ function sendCurrentSceneState(newPlayerId) {
 
     // Get current scene
     const { currentSceneId } = require('../../stores/sceneStore').default.getState();
-    
+
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to process the list
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to process the list
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to process the list
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to process the list
+
     // Send scene change to new player
     newPlayerConnection.conn.send({
         scene: 'common',
@@ -104,7 +109,37 @@ function sendCurrentSceneState(newPlayerId) {
         payload: { sceneId: currentSceneId }
     });
 
-    // TODO: Get rid of this
+    // Send scene change to new player
+    newPlayerConnection.conn.send({
+        scene: 'common',
+        type: 'changeScene',
+        payload: { sceneId: currentSceneId }
+    });
+
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+    // Ideally there would be a delay here and we would send change scene after the player has had a chance to change the scene
+
+
+    // TODO: Instead of what I have below, I should be able to do something like:
+    //
+    // newPlayerConnection.conn.send({
+    //     scene: currentSceneId,
+    //     type: 'initializeScene',
+    //     payload: { sceneId: sceneInformation } // <- now this is the part that's a little awkward since
+    //                                     we don't have a generic reference to the current scene's state/stores...
+    //                                     I need to think of a better architecture for this part
+    // });
+    //
+    //
+
+
+
+
+    // TODO: Get rid of this.
     // Send scene-specific state based on current scene
     if (currentSceneId === 'scene1') {
         const { useScene1Store } = require('../../stores/scene1Store');

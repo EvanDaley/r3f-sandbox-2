@@ -3,9 +3,10 @@ import WelcomeScreen from '../scenes/WelcomeScreen'
 import Scene1 from '../scenes/Scene1'
 import Scene2 from '../scenes/Scene2'
 import Sandbox from '../scenes/Sandbox'
-import VideoPlane from '../scenes/Examples/VideoPlane'
-import GridScene from '../scenes/Examples/GridScene'
+import VideoPlane from '../scenes/examples/VideoPlane'
+import GridScene from '../scenes/examples/GridScene'
 import BirdScene from '../scenes/birds/BirdScene'
+import SimpleGridScene from '../scenes/simple_grid/SimpleGridScene'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
@@ -15,6 +16,7 @@ const scenes = [
   { id: 'sandbox', scene: Sandbox },
   { id: 'birdScene', scene: BirdScene },
   { id: 'grid1', scene: GridScene },
+  { id: 'simpleGrid', scene: SimpleGridScene },
 ]
 
 const defaultScene = 'welcome'
