@@ -12,7 +12,7 @@ export const useSceneInitializer = () => {
             const startTime = Date.now();
             initializeScene(startTime);
 
-            // Initialize all connected players
+            // Initialize all connected players (locally)
             Object.keys(connections).forEach(playerId => {
                 initializePlayer(playerId);
             });
@@ -29,7 +29,7 @@ function broadcastSceneInit(startTime) {
 
     const message = {
         scene: 'gridScene',
-        type: 'sceneInit',
+        type: 'sceneInitEvent',
         payload: {
             startTime,
             playerData: {

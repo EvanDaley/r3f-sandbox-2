@@ -2,7 +2,7 @@ import { Box, Html } from "@react-three/drei";
 import React, { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 
-export default function PulsingLight() {
+export default function PulsingLightWithDebugging() {
     const light = useRef();
     const [intensity, setIntensity] = useState(1);
 

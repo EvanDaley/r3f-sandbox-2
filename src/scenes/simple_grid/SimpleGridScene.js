@@ -18,6 +18,7 @@ import UnevenlySpacedGrid from "./objects/UnevenlySpacedGrid";
 import PulsingLight from "./objects/PulsingLight";
 import ExamplePlane from "../../components/props/examples/ExamplePlane";
 import {useSceneInitializer} from "./hooks/useSceneInitializer";
+import PulsingLightWithDebugging from "./objects/PulsingLightWithDebugging";
 
 export default function Scene() {
     useSceneInitializer()
@@ -36,6 +37,7 @@ export default function Scene() {
             </Stage>
 
             <PulsingLight/>
+            {/*<PulsingLightWithDebugging/>*/}
             <UnevenlySpacedGrid/>
             <GridOrbitControls/>
             <GridEffectsComposer/>

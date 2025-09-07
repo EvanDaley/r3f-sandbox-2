@@ -2,11 +2,15 @@
 import * as birdSceneHandler from './../scenes/birds/handlers/birdSceneHandler';
 import * as commonHandlers from './handlers/common';
 
+// Dev note: Going forward, handlers should use this import structure with an index.js file per scene.
+import GridSceneHandler from './../scenes/simple_grid/handlers';
+
 const HANDLERS = {
     common: commonHandlers,
     scene1: scene1Handlers,
     birdScene: birdSceneHandler,
     // scene2: scene2Handlers,
+    gridScene: GridSceneHandler
 };
 
 export const routeMessage = (fromPeerId, message) => {
