@@ -1,23 +1,23 @@
 import { Box, Html } from "@react-three/drei";
 import React from "react";
 import { useSimpleGridStore } from "../stores/simpleGridStore";
+import HoverCar1 from "../../../components/characters/HoverCar1";
 
 export default function Characters() {
     const { playerPositions } = useSimpleGridStore();
     const debugging = false;
 
-    // simple hash → color mapping
-    const colors = ["red", "green", "blue", "orange", "purple", "yellow", "pink", "cyan"];
-
     return (
         <>
             {Object.entries(playerPositions).map(([playerId, playerPosition], index) => {
-                const color = colors[index % colors.length];
+
 
                 return (
-                    <Box key={playerId} scale={[0.5, 0.5, 0.5]} position={playerPosition}>
-                        <meshStandardMaterial color={color} />
-                    </Box>
+                    // <Box key={playerId} scale={[0.5, 0.5, 0.5]} position={playerPosition}>
+                    //     <meshStandardMaterial color={color} />
+                    // </Box>
+
+                    <HoverCar1 key={playerId} position={playerPosition}/>
                 );
             })}
 

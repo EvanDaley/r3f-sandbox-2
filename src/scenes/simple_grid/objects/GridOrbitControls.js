@@ -7,7 +7,7 @@ export default function GridOrbitControls(props) {
         <>
             <PerspectiveCamera
                 makeDefault
-                position={[-15, 0, 10]}
+                position={[-15, 4, 10]}
                 fov={25}
             />
 
@@ -20,8 +20,8 @@ export default function GridOrbitControls(props) {
                 maxPolarAngle={Math.PI / 2}
                 onChange={(e) => {
                     const cam = e.target.object
-                    if (cam.position.y < 0) {
-                        cam.position.y = 0     // clamp to ground
+                    if (cam.position.y < 2) {
+                        cam.position.y = 2    // clamp to ground
                     }
                 }}
             />

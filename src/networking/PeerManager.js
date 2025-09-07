@@ -4,7 +4,7 @@ import { usePeerStore } from '../stores/peerStore';
 import { routeMessage } from './MessageRouter';
 import {getRandomName} from "../helpers/stringHelpers";
 
-const localHostName = 'local-host-dev-1'
+const localHostName = 'local-host-dev-2'
 
 
 // Helper function to detect local development environment and role

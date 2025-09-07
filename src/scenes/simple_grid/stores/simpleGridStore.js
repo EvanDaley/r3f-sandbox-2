@@ -43,9 +43,9 @@ export const useSimpleGridStore = create(
             initializePlayer: (peerId) => {
                 console.log('Initialized player', peerId);
 
-                const startingX = Math.ceil((Math.random() * 5) - 3)
+                const startingX = Math.ceil((Math.random() * 15) - 8)
                 const startingY = 0
-                const startingZ = Math.ceil((Math.random() * 5) - 3)
+                const startingZ = Math.ceil((Math.random() * 15) - 8)
                 const startingPos = [startingX, startingY, startingZ];
 
                 set(
