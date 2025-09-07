@@ -1,8 +1,8 @@
-import {Box, OrbitControls, PerspectiveCamera} from "@react-three/drei";
+﻿import {Box, OrbitControls, PerspectiveCamera} from "@react-three/drei";
 import React from "react";
 import * as THREE from "three";
 
-export default function GridOrbitControls(props) {
+export default function StandardOrbitControls(props) {
     return (
         <>
             <PerspectiveCamera

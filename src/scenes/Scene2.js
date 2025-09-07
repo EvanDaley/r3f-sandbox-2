@@ -147,9 +147,9 @@ export default function Scene() {
 
 
                 <group position={[2, 3, 0]}>
-                    <pointLight color="#66ffff" intensity={15} decay={1} distance={250} />
+                    <pointLight color="#66ffff" intensity={25} decay={1} distance={250} />
                 </group>
-                <ambientLight intensity={0.3} color="#aaffaa" />
+                <ambientLight intensity={1} color="#aaffaa" />
                 <OrthographicCamera makeDefault position={[15, 15, 15]} zoom={60} />
                 <Room />
             </Suspense>
@@ -160,6 +160,18 @@ export default function Scene() {
                 rotateSpeed={0.12}
                 enablePan={true}
                 enableRotate={true}
+                mouseButtons={{
+                    LEFT: null,
+                    // MIDDLE: THREE.MOUSE.ROTATE,
+                    MIDDLE: null,
+                    RIGHT: THREE.MOUSE.PAN
+                }}
+                onChange={(e) => {
+                    const cam = e.target.object;
+                    if (cam.position.y < 2) {
+                        cam.position.y = 2; // clamp to ground
+                    }
+                }}
             />
             {/*</Stage>*/}
         </>
