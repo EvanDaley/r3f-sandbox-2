@@ -17,7 +17,11 @@ export default function Characters() {
                     //     <meshStandardMaterial color={color} />
                     // </Box>
 
-                    <HoverCar1 key={playerId} position={playerPosition}/>
+                    <HoverCar1
+                        scale={[.5,.5,.5]}
+                        key={playerId}
+                        position={playerPosition}
+                    />
                 );
             })}
 

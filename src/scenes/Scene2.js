@@ -130,20 +130,20 @@ export default function Scene() {
                 {/*)}*/}
 
                 <Tree position={[-2 + -4,1,-6]}/>
-                <Tree position={[-2 + -3,1,-6]}/>
+                {/*<Tree position={[-2 + -3,1,-6]}/>*/}
                 <Tree position={[-2 + -2,1,-6]}/>
-                <Tree position={[-2 + -1,1,-6]}/>
+                {/*<Tree position={[-2 + -1,1,-6]}/>*/}
                 <Tree position={[-2 + 0,1,-6]}/>
-                <Tree position={[-2 + 1,1,-6]}/>
+                {/*<Tree position={[-2 + 1,1,-6]}/>*/}
                 <Tree position={[-2 + 2,1,-6]}/>
-                <Tree position={[-2 + 2,1,-6]}/>
-                <Tree position={[-2 + 3,1,-6]}/>
+                {/*<Tree position={[-2 + 2,1,-6]}/>*/}
                 <Tree position={[-2 + 4,1,-6]}/>
-                <Tree position={[-2 + 5,1,-6]}/>
+                {/*<Tree position={[-2 + 4,1,-6]}/>*/}
                 <Tree position={[-2 + 6,1,-6]}/>
-                <Tree position={[-2 + 7,1,-6]}/>
+                {/*<Tree position={[-2 + 6,1,-6]}/>*/}
                 <Tree position={[-2 + 8,1,-6]}/>
-                <Tree position={[-2 + 8,1,-6]}/>
+                {/*<Tree position={[-2 + 8,1,-6]}/>*/}
+                {/*<Tree position={[-2 + 8,1,-6]}/>*/}
 
 
                 <group position={[2, 3, 0]}>
